@@ -7,6 +7,7 @@ import { UserServiceMock } from '../services/user.service.mock';
 import { RouterTestingModule } from '@angular/router/testing';
 import { EmptyComponent } from '../testing/empty/empty.component';
 import { EmptyComponentModule } from '../testing/empty/empty.module';
+import { first } from 'rxjs';
 
 describe('AuthGuard', () => {
   let guard: AuthGuard;
@@ -43,8 +44,16 @@ describe('AuthGuard', () => {
   });
 
   it('should be logged', () => {
-    guard.auth.getUserByToken();
+    guard.auth.getUserByToken()
+      .pipe(
+        first()
+      ).subscribe((value) => {
+        if (value) {
+          guard.auth.setUser(value);
+        }
 
-    expect(guard.canActivate()).toBeTruthy();
+        expect(guard.canActivate()).toBeTruthy();
+      });
+
   });
 });

@@ -12,10 +12,12 @@ import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { EmptyComponentModule } from 'src/app/testing/empty/empty.module';
 import { EmptyComponent } from 'src/app/testing/empty/empty.component';
+import { first } from 'rxjs';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
+  let userService: UserService;
   let router: Router;
 
   beforeEach(async () => {
@@ -56,6 +58,7 @@ describe('HeaderComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HeaderComponent);
     router = TestBed.inject(Router);
+    userService = TestBed.inject(UserService);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -65,17 +68,26 @@ describe('HeaderComponent', () => {
   });
 
   it('should navigate to user', fakeAsync(() => {
-    const userButton = fixture.debugElement.query(By.css('#userButton')).nativeElement;
+    userService.getUserByToken()
+      .pipe(
+        first()
+      ).subscribe((value) => {
+        if (value) {
+          userService.setUser(value);
+        }
 
-    userButton.dispatchEvent(
-      new MouseEvent('click', { relatedTarget: userButton })
-    );
+        const userButton = fixture.debugElement.query(By.css('#userButton')).nativeElement;
 
-    expect(component.sideNavVisible).toBeFalsy();
-    expect(component.dropdownVisible).toBeFalsy();
+        userButton.dispatchEvent(
+          new MouseEvent('click', { relatedTarget: userButton })
+        );
 
-    tick(1);
-    expect(router.url).toBe('/user');
+        expect(component.sideNavVisible).toBeFalsy();
+        expect(component.dropdownVisible).toBeFalsy();
+
+        tick(1);
+        expect(router.url).toBe('/user');
+      });
   }));
 
   it('should navigate to login', fakeAsync(() => {

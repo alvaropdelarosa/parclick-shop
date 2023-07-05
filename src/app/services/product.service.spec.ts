@@ -118,4 +118,30 @@ describe('ProductService', () => {
       .withContext('one call')
       .toBe(1);
   });
+
+  it('should get prices of category 2', (done: DoneFn) => {
+    const expected: Product[] = createProductsFixture()
+      .filter((product) => {
+        return product.category.id === 2;
+      })
+      .slice(0, 10);
+
+    httpClientSpy.get.and.returnValue(of(expected));
+
+    service.getProductsByCategory(2, 0, 10).subscribe({
+      next: products => {
+        expect(products)
+          .withContext('expected products')
+          .toEqual(expected);
+
+        expect(products.length).toBeLessThanOrEqual(10);
+
+        done();
+      },
+      error: done.fail
+    });
+    expect(httpClientSpy.get.calls.count())
+      .withContext('one call')
+      .toBe(1);
+  });
 });

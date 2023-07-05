@@ -17,6 +17,7 @@ export class UserComponent implements OnInit {
     private metaTagService: Meta
   ) {
     this.titleService.setTitle('Parclick | Perfil');
+    this.metaTagService.updateTag({ name: 'description', content: 'Parclick Shop Perfil' });
   }
 
   ngOnInit(): void {

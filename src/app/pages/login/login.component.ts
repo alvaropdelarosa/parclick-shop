@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  constructor(private readonly router: Router,
+  constructor(
+    private readonly router: Router,
     private readonly titleService: Title,
     private metaTagService: Meta
   ) {

@@ -6,7 +6,7 @@ import { ReplaySubject } from 'rxjs';
 })
 export class LoadingService {
   loading: ReplaySubject<string | null> = new ReplaySubject<string | null>();
-  private currentLoading: string | null = null;
+  currentLoading: string | null = null;
 
   constructor() { }
 

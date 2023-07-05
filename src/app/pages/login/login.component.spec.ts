@@ -5,6 +5,7 @@ import { LoginComponent } from './login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserServiceMock } from 'src/app/services/user.service.mock';
 import { RouterTestingModule } from '@angular/router/testing';
+import { LoginFormModule } from 'src/app/components/login-form/login-form.module';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -15,7 +16,8 @@ describe('LoginComponent', () => {
       declarations: [LoginComponent],
       imports: [
         ReactiveFormsModule,
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([]),
+        LoginFormModule
       ],
       providers: [
         {

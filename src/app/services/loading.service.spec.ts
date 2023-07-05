@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { LoadingService } from './loading.service';
-import { first } from 'rxjs';
+import { first, last, lastValueFrom, take, takeLast } from 'rxjs';
 
 describe('LoadingService', () => {
   let service: LoadingService;
@@ -16,26 +16,29 @@ describe('LoadingService', () => {
   });
 
   it('should set loading true', () => {
-    service.setLoading(true);
+    service.setLoadingTrue();
 
     service.loading
       .pipe(
         first()
       )
-      .subscribe((value: boolean) => {
-        expect(value).toBeTruthy();
+      .subscribe((value: string | null) => {
+        expect(value).toBeDefined();
+        expect(service.currentLoading).toBeDefined();
       });
   });
 
   it('should set loading false', () => {
-    service.setLoading(false);
+    const loading = service.setLoadingTrue();
+    service.setLoadingFalse(loading);
 
-    service.loading
-      .pipe(
-        first()
-      )
-      .subscribe((value: boolean) => {
-        expect(value).toBeFalsy();
-      });
+    expect(service.currentLoading).toBeNull();
+  });
+
+  it('should not change loading', () => {
+    service.currentLoading = '123';
+    service.setLoadingFalse('test');
+
+    expect(service.currentLoading).toEqual('123');
   });
 });

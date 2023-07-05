@@ -49,15 +49,4 @@ describe('ProductComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should get product', () => {
-    // service.
-  });
-
-  it('should throw error', () => {
-    const mockCall = spyOn(service, 'getProductById').and.returnValue(
-      throwError(() => new Error('Test error'))
-    );
-
-    component.getProduct(1);
-  });
 });

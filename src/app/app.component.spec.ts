@@ -6,8 +6,10 @@ import { UserServiceMock } from './services/user.service.mock';
 import { CategoryService } from './services/category.service';
 import { CategoryServiceMock } from './services/category.service.mock';
 import { HeaderModule } from './components/header/header.module';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Meta, Title } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
+import { CookieServiceMock } from './services/cookie.service.mock';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -27,12 +29,22 @@ describe('AppComponent', () => {
       ],
       providers: [
         {
+          provide: CookieService,
+          useClass: CookieServiceMock
+        },
+        {
           provide: UserService,
           useClass: UserServiceMock
         },
         {
           provide: CategoryService,
           useClass: CategoryServiceMock
+        },
+        {
+          provide: Meta
+        },
+        {
+          provide: Title
         }
       ]
     }).compileComponents();
@@ -47,9 +59,5 @@ describe('AppComponent', () => {
 
   it('should create the app', () => {
     expect(component).toBeTruthy();
-  });
-
-  it(`should have as title 'parclick-shop'`, () => {
-    expect(component.title).toEqual('parclick-shop');
   });
 });

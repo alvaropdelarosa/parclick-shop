@@ -17,14 +17,12 @@ export class UserService {
 
   constructor(
     private http: HttpClient,
-    private readonly cookieService: CookieService
+    public cookieService: CookieService
   ) {
     this.baseUrl = environment.baseUrl;
   }
 
   isAuthenticated(): boolean {
-    const token = this.cookieService.get('access_token');
-
     return !!this.currentUser;
   }
 

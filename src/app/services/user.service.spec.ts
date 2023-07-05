@@ -2,17 +2,20 @@ import { TestBed } from '@angular/core/testing';
 
 import { UserService } from './user.service';
 import { HttpClient } from '@angular/common/http';
-import { of, throwError } from 'rxjs';
+import { first, of } from 'rxjs';
 import { createUserFixture } from '../models/fixture';
 import { CreateUserDTO } from '../models';
+import { CookieService } from 'ngx-cookie-service';
 
 describe('UserService', () => {
   let httpClientSpy: jasmine.SpyObj<HttpClient>;
   let service: UserService;
+  let cookieService: CookieService;
 
   beforeEach(() => {
     httpClientSpy = jasmine.createSpyObj('HttpClient', ['get', 'post']);
-    service = new UserService(httpClientSpy);
+    cookieService = TestBed.inject(CookieService);
+    service = new UserService(httpClientSpy, cookieService);
   });
 
   it('should be created', () => {
@@ -46,6 +49,8 @@ describe('UserService', () => {
   });
 
   it('should get user by token', (done: DoneFn) => {
+    service.cookieService.set('access_token', 'test');
+
     const expected = createUserFixture();
 
     httpClientSpy.get.and.returnValue(of(expected));
@@ -59,9 +64,26 @@ describe('UserService', () => {
       },
       error: done.fail
     });
+
     expect(httpClientSpy.get.calls.count())
       .withContext('one call')
       .toBe(1);
+  });
+
+  it('should set user', () => {
+    const user = createUserFixture();
+
+    service.setUser(user);
+
+    expect(service.currentUser).toBeDefined();
+    expect(service.currentUser?.id).toEqual(user.id);
+
+    service.user.pipe(
+      first()
+    ).subscribe((value) => {
+      expect(value).toBeDefined();
+      expect(value?.id).toEqual(user.id);
+    });
   });
 
   it('should register', (done: DoneFn) => {
@@ -89,18 +111,6 @@ describe('UserService', () => {
       .toBe(1);
   });
 
-  it('should NOT get user by token', () => {
-    const expected = new Error('Test error');
-
-    httpClientSpy.get.and.returnValue(of(expected));
-
-    service.getUserByToken().subscribe({
-      next: (value) => { },
-      error: (err) => {
-      }
-    });
-  });
-
   it('should be authenticated', () => {
     service.currentUser = createUserFixture();
 
@@ -111,6 +121,20 @@ describe('UserService', () => {
     service.clear();
 
     expect(service.isAuthenticated()).toBeFalsy();
+  });
+
+  it('should not return token', (done: DoneFn) => {
+    const expected = null;
+
+    httpClientSpy.get.and.returnValue(of(expected));
+
+    service.getUserByToken().subscribe({
+      next: response => {
+        expect(response).toBeNull();
+        done();
+      },
+      error: done.fail
+    });
   });
 });
 

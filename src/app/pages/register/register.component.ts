@@ -4,7 +4,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
-import { CreateUserDTO } from 'src/app/models/DTO/create-user.dto';
 import { User } from 'src/app/models/user.model';
 
 @Component({

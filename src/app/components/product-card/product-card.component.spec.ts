@@ -26,7 +26,7 @@ describe('ProductCardComponent', () => {
             component: EmptyComponent
           },
           {
-            path: 'checkout',
+            path: 'checkout/:id',
             component: EmptyComponent
           }
         ])
@@ -66,6 +66,6 @@ describe('ProductCardComponent', () => {
     );
 
     tick(1);
-    expect(router.url).toBe('/checkout');
+    expect(router.url).toBe('/checkout/' + component.product.id);
   }));
 });

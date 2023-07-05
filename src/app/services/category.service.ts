@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CategoryService {
   private baseUrl!: string;
-  categories: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
+  categories: ReplaySubject<Category[]> = new ReplaySubject<Category[]>(1);
 
   constructor(private readonly http: HttpClient) {
     this.baseUrl = environment.baseUrl;
