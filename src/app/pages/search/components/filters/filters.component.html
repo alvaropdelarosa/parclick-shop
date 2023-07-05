@@ -1,0 +1,32 @@
+<form [formGroup]="form">
+  <div class="field">
+    <label for="title">Nombre:</label>
+    <input type="text" name="title" formControlName="title" id="title" autocomplete="off">
+  </div>
+
+  <div class="field">
+    <label>Precio ({{rangeValues[0]}} - {{rangeValues[1]}}):</label>
+    <p-slider [(ngModel)]="rangeValues" [range]="true" [min]="1" [max]="1000" [ngModelOptions]="{ standalone: true }"
+      (ngModelChange)="updateRange($event)"></p-slider>
+    <input type="number" name="minPrice" value="1" formControlName="minPrice" hidden>
+    <input type="number" name="maxPrice" value="100" formControlName="maxPrice" hidden>
+  </div>
+
+  <div class="field">
+    <label for="category">Categoría:</label>
+    <select name="category" formControlName="category" id="category">
+      <option value="">Todas</option>
+      <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+    </select>
+  </div>
+
+  <div class="btn-field">
+    <button type="button" class="btn block reset" (click)="reset()" id="reset-button">
+      Reset
+    </button>
+  </div>
+
+  <button type="button" class="btn primary block" (click)="filter()" id="filter-button">
+    FILTRAR
+  </button>
+</form>

@@ -1,0 +1,52 @@
+section {
+  margin-top: 76px;
+
+  .banner {
+    height: 300px;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary);
+    text-shadow: 0px 0px 10px rgb(255, 255, 255);
+  }
+
+  .list {
+    padding: 0 2rem 0 2rem;
+  }
+
+  .paginator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 0;
+
+    .page-counter {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+.not-found {
+  font-weight: bold;
+  text-align: center;
+  padding-top: 2rem;
+  margin: auto;
+}
+
+@media screen and (max-width: 768px) {
+  section {
+    .banner {
+      position: relative;
+    }
+  }
+}

@@ -1,0 +1,85 @@
+.error {
+  padding: 12px 16px;
+  background-color: var(--danger);
+  height: auto;
+  border-radius: 12px;
+
+  span {
+    font-weight: bold;
+    color: #fff;
+  }
+}
+
+.wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  .images {
+    width: 45%;
+  }
+
+  .info {
+    width: 55%;
+
+    .top {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .category {
+        border: solid 1px var(--gray);
+        border-radius: 12px;
+        padding: 2px 6px;
+      }
+    }
+
+    .price {
+      font-size: 3rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    button {
+      margin-top: 2rem;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .wrapper {
+    flex-direction: column;
+
+    .images {
+      width: 100%;
+    }
+
+    .info {
+      width: 100%;
+    }
+  }
+}
+
+:host ::ng-deep .p-carousel-item {
+  img {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    flex-direction: column;
+
+    .images {
+      width: 100%;
+    }
+
+    .info {
+      width: 87%;
+      margin: auto;
+    }
+  }
+
+}

@@ -1,0 +1,33 @@
+<section class="page" *ngIf="hasError">
+  <app-error-redirector [visible]="hasError"></app-error-redirector>
+</section>
+
+<section class="page" *ngIf="product">
+  <article class="wrapper">
+    <div class="images">
+      <p-carousel [value]="product.images" [circular]="true">
+        <ng-template let-img pTemplate="item">
+          <img [src]="img" alt="Product image">
+        </ng-template>
+      </p-carousel>
+    </div>
+
+    <div class="info">
+      <div class="top">
+        <h1>{{ product.title }}</h1>
+        <span class="category">
+          {{ product.category.name }}
+        </span>
+      </div>
+      <p>{{ product.description }}</p>
+
+      <span class="price">
+        {{ product.price | currency: 'EUR' }}
+      </span>
+
+      <button class="btn round block primary" (click)="checkout()">COMPRAR</button>
+
+    </div>
+  </article>
+
+</section>

@@ -1,0 +1,18 @@
+<section>
+  <video [autoplay]="true" preload="metadata" playsinline [controls]="false" [loop]="true" [muted]="true">
+    <source type="video/mp4" src="../../../assets/video/shopping-bags.mp4">
+  </video>
+
+
+  <div class="search-wrapper">
+    <h1>Todo lo que buscas</h1>
+    <h2>Aquí y ahora.</h2>
+    <div class="input-wrapper">
+      <input type="text" [(ngModel)]="searchValue" name="search" placeholder="Busca el producto que necesitas..."
+        autofocus (keyup.enter)="search()">
+      <button class="btn icon" (click)="search()">
+        <span class="material-symbols-outlined">search</span>
+      </button>
+    </div>
+  </div>
+</section>

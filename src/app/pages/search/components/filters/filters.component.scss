@@ -1,0 +1,57 @@
+form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 2rem;
+  grid-row-gap: 1rem;
+}
+
+input,
+select {
+  width: 100%;
+  min-height: 25px;
+  border: unset;
+  border-radius: 4px;
+  outline-color: rgb(84 105 212 / 0.5);
+  background-color: rgb(255, 255, 255);
+  margin-top: .4rem
+}
+
+::ng-deep {
+  .p-slider {
+    margin-top: 1.1rem;
+
+    .p-slider-range {
+      background: var(--primary);
+    }
+
+    .p-slider-handle {
+      border-color: var(--primary);
+
+      &:hover {
+        background: var(--primary) !important;
+        border-color: var(--primary) !important;
+      }
+    }
+  }
+}
+
+input[type=text],
+input[type=number],
+select {
+  box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(60, 66, 87, 0.16) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+}
+
+button:not(.reset) {
+  grid-column: span 2;
+  margin-bottom: 1rem;
+}
+
+.btn-field {
+  margin-top: auto;
+}

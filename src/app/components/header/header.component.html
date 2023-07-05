@@ -1,0 +1,85 @@
+<header>
+  <div class="wrapper padding">
+    <button class="btn icon" (click)="sideNavVisible = !sideNavVisible" id="side-toggle">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+
+    <img [routerLink]="['']" ngSrc="../../../assets/img/parclick-logotipo.svg" width="124" height="38" alt="Shop Logo">
+
+    <ul class="padding-horizontal" id="horizontal-nav">
+      <li>
+        <a [routerLink]="['']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          Home
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['/products']" routerLinkActive="active">Products</a>
+      </li>
+      <li (click)="dropdownVisible = !dropdownVisible" id="category-drop">
+        <span routerLinkActive="active">
+          Categorías
+          <span class="material-symbols-outlined"
+            *ngIf="!dropdownVisible; else dropdownVisibleTmp">arrow_drop_down</span>
+
+          <ng-template #dropdownVisibleTmp>
+            <span class="material-symbols-outlined">arrow_drop_up</span>
+          </ng-template>
+        </span>
+
+        <div class="dropdown" *ngIf="dropdownVisible">
+          <ul>
+            <li *ngFor="let category of categories">
+              <a [routerLink]="['/category/' + category.id]" routerLinkActive="active">{{ category.name }}</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li *ngIf="userIsAdmin()">
+        <a [routerLink]="['/admin']" routerLinkActive="active">Admin</a>
+      </li>
+    </ul>
+
+    <button class="btn icon" (click)="onUserClick()" id="userButton">
+      <span class="material-symbols-outlined">person</span>
+    </button>
+  </div>
+
+  <div class="loading" *ngIf="loading">
+    <div class="inner"></div>
+  </div>
+</header>
+
+<div [ngClass]="{visible: sideNavVisible}" class="backdrop" (click)="sideNavVisible = !sideNavVisible"></div>
+<nav [ngClass]="{visible: sideNavVisible}">
+  <ul class="padding-horizontal">
+    <li>
+      <a [routerLink]="['']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        Home
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/products']" routerLinkActive="active">Products</a>
+    </li>
+    <li (click)="dropdownVisible = !dropdownVisible">
+      <a routerLinkActive="active">
+        Categorías
+        <span class="material-symbols-outlined" *ngIf="!dropdownVisible; else dropdownVisibleTmp">arrow_drop_down</span>
+
+        <ng-template #dropdownVisibleTmp>
+          <span class="material-symbols-outlined">arrow_drop_up</span>
+        </ng-template>
+      </a>
+
+      <div class="dropdown" *ngIf="dropdownVisible">
+        <ul>
+          <li *ngFor="let category of categories">
+            <a [routerLink]="['/category/' + category.id]" routerLinkActive="active">{{ category.name }}</a>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li *ngIf="userIsAdmin()">
+      <a [routerLink]="['/admin']" routerLinkActive="active">Admin</a>
+    </li>
+  </ul>
+</nav>

@@ -1,0 +1,83 @@
+<section class="page" *ngIf="hasError">
+  <app-error-redirector [visible]="hasError"></app-error-redirector>
+</section>
+
+<section class="page" *ngIf="product">
+  <p-dialog header="Header" [(visible)]="visible" [style]="{width: '50vw'}" [breakpoints]="{ '960px': '75vw' }"
+    [draggable]="false" [resizable]="false" [closable]="false">
+    <ng-template pTemplate="header">
+      <h2>Inicie sesión para completar la compra</h2>
+    </ng-template>
+
+    <app-login-form></app-login-form>
+
+    <ng-template pTemplate="footer">
+      <button class="btn round">Registro</button>
+    </ng-template>
+
+  </p-dialog>
+
+
+  <article>
+    <h1 class="mb">Detalle de la compra</h1>
+
+    <section class="product-detail mb">
+      <img *ngIf="product.images.length" [src]="product.images[0]" [alt]="product.title">
+
+      <div class="column">
+        <h3>{{ product.title }}</h3>
+        <h4 class="price">{{ product.price | currency: 'EUR'}}</h4>
+      </div>
+    </section>
+
+    <h2 class="mb">Datos de pago</h2>
+    <form>
+
+      <div class="field">
+        <label for="name">Nombre:</label>
+        <input type="text" name="name" id="name" autocomplete="name">
+      </div>
+
+      <div class="field">
+        <label for="lastName">Apellidos:</label>
+        <input type="text" name="lastName" id="lastName" autocomplete="off">
+      </div>
+
+      <div class="field">
+        <label for="address">Dirección:</label>
+        <input type="text" name="address" id="address" autocomplete="address-level1">
+      </div>
+
+      <div class="field">
+        <label for="city">Ciudad:</label>
+        <input type="text" name="city" id="city" autocomplete="off">
+      </div>
+
+      <div class="payment">
+        <div class="field">
+          <label for="titular">Nombre del titular:</label>
+          <input type="text" name="titular" id="titular" autocomplete="off">
+        </div>
+
+        <div class="field">
+          <label for="card">Número de tarjeta:</label>
+          <input type="text" name="card" id="card" autocomplete="off">
+        </div>
+
+        <div class="field">
+          <label for="date">Caducidad:</label>
+          <input type="text" name="date" id="date" autocomplete="off">
+        </div>
+
+        <div class="field">
+          <label for="cvv">CVV:</label>
+          <input type="text" name="cvv" id="cvv" autocomplete="off">
+        </div>
+      </div>
+    </form>
+
+    <button class="btn primary round block" (click)="pay()">PAGAR</button>
+
+  </article>
+
+</section>

@@ -1,0 +1,31 @@
+<section class="page">
+  <div class="form" *ngIf="user">
+    <div class="field">
+      <label for="name">Nombre:</label>
+      <input type="text" name="name" [(ngModel)]="user.name" id="name" autocomplete="name">
+    </div>
+
+    <div class="field">
+      <label for="email">Email:</label>
+      <input type="email" name="email" [(ngModel)]="user.email" id="email" autocomplete="email">
+    </div>
+
+    <div class="field">
+      <label for="password">Password:</label>
+      <input type="password" name="password" [(ngModel)]="user.password" id="password">
+    </div>
+
+    <div class="field">
+      <label for="name">Rol:</label>
+
+      <select name="role" [(ngModel)]="user.role" id="role">
+        <option value="customer">Cliente</option>
+        <option value="admin">Admin</option>
+      </select>
+    </div>
+
+    <button class="btn primary round">
+      ACTUALIZAR
+    </button>
+  </div>
+</section>

@@ -1,0 +1,25 @@
+<article (click)="showDetail(product.id)">
+  <div class="images">
+    <div class="image-container">
+
+      <img [src]="product.images[0]" width="100%" [alt]="product.title">
+    </div>
+
+  </div>
+
+  <div class="content">
+    <div>
+      <h1>{{ product.title }}</h1>
+
+      <span class="category">
+        {{ product.category.name }}
+      </span>
+
+      <span class="price">
+        {{ product.price | currency: 'EUR' }}
+      </span>
+    </div>
+
+    <button class="btn round block primary" (click)="$event.stopPropagation(); checkout(product.id)">COMPRAR</button>
+  </div>
+</article>
