@@ -9,7 +9,7 @@
     "test": "ng test",
     "dev:ssr": "ng run parclick-shop:serve-ssr",
     "serve:ssr": "node dist/parclick-shop/server/main.js",
-    "build:ssr": "ng run parclick-shop:prerender && ng build --build-optimizer && ng run parclick-shop:server",
+    "build:ssr": "ng run parclick-shop:prerender && ng build --build-optimizer",
     "prerender": "ng run parclick-shop:prerender"
   },
   "private": true,
