@@ -22,9 +22,20 @@ export class UserServiceMock {
     return of(createTokenFixture());
   }
 
-  getUserByToken(): Observable<User | null> {
+  getUserByToken(fail: boolean = false): Observable<User | null> {
+    if (fail) {
+      return of(null);
+    }
 
     return of(createUserFixture());
+  }
+
+  getAccessToken(): string {
+    return 'access_token';
+  }
+
+  getRefreshToken(): string {
+    return 'refresh_token';
   }
 
   setUser(user: User) {

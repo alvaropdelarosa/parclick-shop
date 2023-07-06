@@ -6,7 +6,7 @@ export function createUserFixture(): User {
     email: "john@mail.com",
     password: "changeme",
     name: "Jhon",
-    role: "customer",
+    role: "admin",
     avatar: "https://picsum.photos/640/640?r=3671"
   };
 }

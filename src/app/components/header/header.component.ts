@@ -36,11 +36,21 @@ export class HeaderComponent implements OnInit {
     this.categoryService.categories.subscribe((value) => {
       this.categories = value
     });
-    this.userService.user.subscribe((value) => {
-      if (value) {
-        this.user = value;
-      }
-    });
+    this.getUser();
+  }
+
+  getUser() {
+    if (!this.userService.currentUser) {
+      this.userService.getUserByToken()
+        .subscribe((value) => {
+          if (!value) {
+            return;
+          }
+          this.user = value;
+        });
+    }
+
+    this.user = this.userService.currentUser;
   }
 
   userIsAdmin() {

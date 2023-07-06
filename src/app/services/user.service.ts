@@ -35,6 +35,10 @@ export class UserService {
           this.cookieService.set('refresh_token', value.refresh_token);
 
           return value;
+        }),
+        catchError((err: any) => {
+          this.clear();
+          return of();
         })
       );
   }
@@ -53,6 +57,14 @@ export class UserService {
     return this.http.get<User>(`${this.baseUrl}auth/profile`, {
       headers
     });
+  }
+
+  getAccessToken(): string {
+    return this.cookieService.get('access_token');
+  }
+
+  getRefreshToken(): string {
+    return this.cookieService.get('refresh_token');
   }
 
   setUser(user: User) {

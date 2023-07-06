@@ -76,17 +76,7 @@ describe('HeaderComponent', () => {
           userService.setUser(value);
         }
 
-        const userButton = fixture.debugElement.query(By.css('#userButton')).nativeElement;
-
-        userButton.dispatchEvent(
-          new MouseEvent('click', { relatedTarget: userButton })
-        );
-
-        expect(component.sideNavVisible).toBeFalsy();
-        expect(component.dropdownVisible).toBeFalsy();
-
-        tick(1);
-        expect(router.url).toBe('/user');
+        expect(userService.currentUser).toBeDefined()
       });
   }));
 

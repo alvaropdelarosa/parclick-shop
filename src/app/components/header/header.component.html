@@ -34,9 +34,9 @@
           </ul>
         </div>
       </li>
-      <li *ngIf="userIsAdmin()">
+      {{ userIsAdmin() }} <-- <li *ngIf="userIsAdmin()">
         <a [routerLink]="['/admin']" routerLinkActive="active">Admin</a>
-      </li>
+        </li>
     </ul>
 
     <button class="btn icon" (click)="onUserClick()" id="userButton">

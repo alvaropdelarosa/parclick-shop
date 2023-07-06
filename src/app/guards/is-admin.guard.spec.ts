@@ -1,16 +1,15 @@
-import { TestBed, fakeAsync } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import { AuthGuard } from './auth.guard';
+import { IsAdminGuard } from './is-admin.guard';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { UserService } from '../services/user.service';
-import { UserServiceMock } from '../services/user.service.mock';
 import { RouterTestingModule } from '@angular/router/testing';
+import { CustomHttpInterceptor } from '../interceptors/http.interceptor';
 import { EmptyComponent } from '../testing/empty/empty.component';
 import { EmptyComponentModule } from '../testing/empty/empty.module';
 import { first } from 'rxjs';
 
-describe('AuthGuard', () => {
-  let guard: AuthGuard;
+describe('IsAdminGuard', () => {
+  let guard: IsAdminGuard;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -19,32 +18,34 @@ describe('AuthGuard', () => {
         EmptyComponentModule,
         RouterTestingModule.withRoutes([
           {
-            path: 'login',
+            path: '',
             component: EmptyComponent
           }
         ])
       ],
       providers: [
-        {
-          provide: UserService,
-          useClass: UserServiceMock
-        },
+        CustomHttpInterceptor,
       ]
     });
-    guard = TestBed.inject(AuthGuard);
+    guard = TestBed.inject(IsAdminGuard);
   });
 
   it('should be created', () => {
     expect(guard).toBeTruthy();
   });
 
-  it('should be logged', fakeAsync(() => {
-    guard.autoLogin()
+  it('should activate', () => {
+
+  });
+
+  it('should not activate', () => {
+    guard.auth.clear();
+    guard.canActivate()
       .pipe(
         first()
       )
       .subscribe((value) => {
-        expect(value).toBeTruthy()
-      });
-  }));
+        expect(value).toBeFalsy();
+      })
+  });
 });

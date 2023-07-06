@@ -7,6 +7,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import es from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { CustomHttpInterceptor } from './interceptors/http.interceptor';
 
 registerLocaleData(es);
 
@@ -25,6 +26,11 @@ registerLocaleData(es);
     {
       provide: LOCALE_ID,
       useValue: 'es-ES'
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CustomHttpInterceptor,
+      multi: true
     },
     Title,
     Meta
